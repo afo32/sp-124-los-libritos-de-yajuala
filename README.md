@@ -1,81 +1,143 @@
-# WebApp boilerplate with React JS and Flask API
+# 📚 Los Libritos de Yajuala
 
-Build web applications using React.js for the front end and python/flask for your backend API.
+A full-stack web application for book management, built with **React.js** on the frontend and **Python/Flask** on the backend. Developed as a group project at [4Geeks Academy](https://4geeksacademy.com/).
 
-- Documentation can be found here: https://4geeks.com/docs/start/react-flask-template
-- Here is a video on [how to use this template](https://www.loom.com/share/f37c6838b3f1496c95111e515e83dd9b)
-- Integrated with Pipenv for package managing.
-- Fast deployment to Render [in just a few steps here](https://4geeks.com/docs/start/deploy-to-render-com).
-- Use of .env file.
-- SQLAlchemy integration for database abstraction.
+---
 
-### 1) Installation:
+## 🚀 Tech Stack
 
-> If you use Github Codespaces (recommended) or Gitpod this template will already come with Python, Node and the Posgres Database installed. If you are working locally make sure to install Python 3.10, Node 
+| Layer | Technology |
+|-------|------------|
+| Frontend | React.js, Vite, CSS |
+| Backend | Python, Flask, SQLAlchemy |
+| Database | PostgreSQL (SQLite / MySQL supported) |
+| Package Manager | Pipenv (Python) / npm (JS) |
+| Deployment | Render.com |
 
-It is recomended to install the backend first, make sure you have Python 3.10, Pipenv and a database engine (Posgress recomended)
+---
 
-1. Install the python packages: `$ pipenv install`
-2. Create a .env file based on the .env.example: `$ cp .env.example .env`
-3. Install your database engine and create your database, depending on your database you have to create a DATABASE_URL variable with one of the possible values, make sure you replace the valudes with your database information:
+## ⚙️ Installation & Setup
 
-| Engine    | DATABASE_URL                                        |
-| --------- | --------------------------------------------------- |
-| SQLite    | sqlite:////test.db                                  |
-| MySQL     | mysql://username:password@localhost:port/example    |
-| Postgress | postgres://username:password@localhost:5432/example |
+### Prerequisites
 
-4. Migrate the migrations: `$ pipenv run migrate` (skip if you have not made changes to the models on the `./src/api/models.py`)
-5. Run the migrations: `$ pipenv run upgrade`
-6. Run the application: `$ pipenv run start`
+- Python 3.10+
+- Node.js 20+
+- PostgreSQL (recommended) or another supported DB engine
+- Pipenv
 
-> Note: Codespaces users can connect to psql by typing: `psql -h localhost -U gitpod example`
+---
 
-### Undo a migration
+### 🔧 Backend Setup
 
-You are also able to undo a migration by running
+1. Install Python dependencies:
+   ```bash
+   pipenv install
+   ```
 
-```sh
-$ pipenv run downgrade
+2. Create your environment file:
+   ```bash
+   cp .env.example .env
+   ```
+
+3. Set your `DATABASE_URL` in `.env` according to your database engine:
+
+   | Engine | DATABASE_URL |
+   |--------|--------------|
+   | SQLite | `sqlite:////test.db` |
+   | MySQL | `mysql://username:password@localhost:port/example` |
+   | PostgreSQL | `postgres://username:password@localhost:5432/example` |
+
+4. Run database migrations:
+   ```bash
+   pipenv run migrate
+   pipenv run upgrade
+   ```
+
+5. Start the backend server:
+   ```bash
+   pipenv run start
+   ```
+
+> **Codespaces users:** Connect to PostgreSQL with:
+> ```bash
+> psql -h localhost -U gitpod example
+> ```
+
+---
+
+### 🎨 Frontend Setup
+
+1. Install JavaScript dependencies:
+   ```bash
+   npm install
+   ```
+
+2. Start the development server:
+   ```bash
+   npm run start
+   ```
+
+---
+
+## 🧪 Testing & Seeding Data
+
+### Insert test users
+
+```bash
+flask insert-test-users 5
 ```
 
-### Backend Populate Table Users
+### Insert custom test data
 
-To insert test users in the database execute the following command:
+Edit the `insert_test_data` function in `src/api/commands.py`, then run:
 
-```sh
-$ flask insert-test-users 5
+```bash
+pipenv run insert-test-data
 ```
 
-And you will see the following message:
+> ⚠️ Each GitHub Codespace has its own isolated database. Data will not persist between environments.
 
-```
-  Creating test users
-  test_user1@test.com created.
-  test_user2@test.com created.
-  test_user3@test.com created.
-  test_user4@test.com created.
-  test_user5@test.com created.
-  Users created successfully!
+---
+
+## ↩️ Undo a Migration
+
+```bash
+pipenv run downgrade
 ```
 
-### **Important note for the database and the data inside it**
+---
 
-Every Github codespace environment will have **its own database**, so if you're working with more people eveyone will have a different database and different records inside it. This data **will be lost**, so don't spend too much time manually creating records for testing, instead, you can automate adding records to your database by editing ```commands.py``` file inside ```/src/api``` folder. Edit line 32 function ```insert_test_data``` to insert the data according to your model (use the function ```insert_test_users``` above as an example). Then, all you need to do is run ```pipenv run insert-test-data```.
+## 🌐 Deployment
 
-### Front-End Manual Installation:
+This project is ready to deploy on **Render.com**. Follow the [official deployment guide](https://4geeks.com/docs/start/deploy-to-render-com).
 
--   Make sure you are using node version 20 and that you have already successfully installed and runned the backend.
+---
 
-1. Install the packages: `$ npm install`
-2. Start coding! start the webpack dev server `$ npm run start`
+## 📁 Project Structure
 
-## Publish your website!
+```
+sp-124-los-libritos-de-yajuala/
+├── src/
+│   ├── api/          # Flask backend (models, routes, commands)
+│   └── front/        # React frontend (components, pages, styles)
+├── migrations/       # Alembic DB migrations
+├── public/           # Static assets
+├── .env.example      # Environment variable template
+├── Pipfile           # Python dependencies
+├── package.json      # JS dependencies
+└── render.yaml       # Render deployment config
+```
 
-This boilerplate it's 100% read to deploy with Render.com and Heroku in a matter of minutes. Please read the [official documentation about it](https://4geeks.com/docs/start/deploy-to-render-com).
+---
 
-### Contributors
+## 👥 Contributors
 
-This template was built as part of the 4Geeks Academy [Coding Bootcamp](https://4geeksacademy.com/us/coding-bootcamp) by [Alejandro Sanchez](https://twitter.com/alesanchezr) and many other contributors. Find out more about our [Full Stack Developer Course](https://4geeksacademy.com/us/coding-bootcamps/part-time-full-stack-developer), and [Data Science Bootcamp](https://4geeksacademy.com/us/coding-bootcamps/datascience-machine-learning).
+Built by the **Los Libritos de Yajuala** team as part of the 4Geeks Academy Full Stack Bootcamp (Group sp-124).
 
-You can find other templates and resources like this at the [school github page](https://github.com/4geeksacademy/).
+Template originally created by [Alejandro Sanchez](https://twitter.com/alesanchezr) and contributors at [4Geeks Academy](https://github.com/4geeksacademy/).
+
+---
+
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).
