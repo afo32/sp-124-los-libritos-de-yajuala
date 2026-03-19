@@ -1,81 +1,143 @@
-# Plantilla de WebApp con React JS y Flask API
+# 📚 Los Libritos de Yajuala
 
-Construye aplicaciones web usando React.js para el front end y python/flask para tu API backend.
+Aplicación web full-stack para la gestión de libros, construida con **React.js** en el frontend y **Python/Flask** en el backend. Desarrollada como proyecto grupal de [4Geeks Academy](https://4geeksacademy.com/).
 
-- La documentación se puede encontrar aquí: https://4geeks.com/docs/start/react-flask-template
-- Aquí hay un video sobre [cómo usar esta plantilla](https://www.youtube.com/watch?v=qBz6Ddd2m38)
-- Integrado con Pipenv para la gestión de paquetes.
-- Despliegue rápido a Render [en solo unos pocos pasos aquí](https://4geeks.com/es/docs/start/despliega-con-render-com).
-- Uso del archivo .env.
-- Integración de SQLAlchemy para la abstracción de bases de datos.
+---
 
-### 1) Instalación:
+## 🚀 Stack Tecnológico
 
-> Si usas Github Codespaces (recomendado) o Gitpod, esta plantilla ya vendrá con Python, Node y la base de datos Posgres instalados. Si estás trabajando localmente, asegúrate de instalar Python 3.10, Node.
+| Capa | Tecnología |
+|------|------------|
+| Frontend | React.js, Vite, CSS |
+| Backend | Python, Flask, SQLAlchemy |
+| Base de datos | PostgreSQL (también compatible con SQLite / MySQL) |
+| Gestión de paquetes | Pipenv (Python) / npm (JS) |
+| Despliegue | Render.com |
 
-Se recomienda instalar el backend primero, asegúrate de tener Python 3.10, Pipenv y un motor de base de datos (se recomienda Posgres).
+---
 
-1. Instala los paquetes de python: `$ pipenv install`
-2. Crea un archivo .env basado en el .env.example: `$ cp .env.example .env`
-3. Instala tu motor de base de datos y crea tu base de datos, dependiendo de tu base de datos, debes crear una variable DATABASE_URL con uno de los valores posibles, asegúrate de reemplazar los valores con la información de tu base de datos:
+## ⚙️ Instalación y Configuración
 
-| Motor     | DATABASE_URL                                        |
-| --------- | --------------------------------------------------- |
-| SQLite    | sqlite:////test.db                                  |
-| MySQL     | mysql://username:password@localhost:port/example    |
-| Postgres  | postgres://username:password@localhost:5432/example |
+### Requisitos previos
 
-4. Migra las migraciones: `$ pipenv run migrate` (omite si no has hecho cambios en los modelos en `./src/api/models.py`)
-5. Ejecuta las migraciones: `$ pipenv run upgrade`
-6. Ejecuta la aplicación: `$ pipenv run start`
+- Python 3.10+
+- Node.js 20+
+- PostgreSQL (recomendado) u otro motor de base de datos compatible
+- Pipenv
 
-> Nota: Los usuarios de Codespaces pueden conectarse a psql escribiendo: `psql -h localhost -U gitpod example`
+---
 
-### Deshacer una migración
+### 🔧 Configuración del Backend
 
-También puedes deshacer una migración ejecutando
+1. Instalar dependencias de Python:
+   ```bash
+   pipenv install
+   ```
 
-```sh
-$ pipenv run downgrade
+2. Crear el archivo de entorno:
+   ```bash
+   cp .env.example .env
+   ```
+
+3. Configura `DATABASE_URL` en tu `.env` según tu motor de base de datos:
+
+   | Motor | DATABASE_URL |
+   |-------|--------------|
+   | SQLite | `sqlite:////test.db` |
+   | MySQL | `mysql://username:password@localhost:port/example` |
+   | PostgreSQL | `postgres://username:password@localhost:5432/example` |
+
+4. Ejecutar las migraciones:
+   ```bash
+   pipenv run migrate
+   pipenv run upgrade
+   ```
+
+5. Iniciar el servidor backend:
+   ```bash
+   pipenv run start
+   ```
+
+> **Usuarios de Codespaces:** Conéctate a PostgreSQL con:
+> ```bash
+> psql -h localhost -U gitpod example
+> ```
+
+---
+
+### 🎨 Configuración del Frontend
+
+1. Instalar dependencias de JavaScript:
+   ```bash
+   npm install
+   ```
+
+2. Iniciar el servidor de desarrollo:
+   ```bash
+   npm run start
+   ```
+
+---
+
+## 🧪 Pruebas y Datos de Ejemplo
+
+### Insertar usuarios de prueba
+
+```bash
+flask insert-test-users 5
 ```
 
-### Población de la tabla de usuarios en el backend
+### Insertar datos personalizados
 
-Para insertar usuarios de prueba en la base de datos, ejecuta el siguiente comando:
+Edita la función `insert_test_data` en `src/api/commands.py` y luego ejecuta:
 
-```sh
-$ flask insert-test-users 5
+```bash
+pipenv run insert-test-data
 ```
 
-Y verás el siguiente mensaje:
+> ⚠️ Cada entorno de GitHub Codespaces tiene su propia base de datos aislada. Los datos no persisten entre entornos.
 
-```
-    Creating test users
-    test_user1@test.com created.
-    test_user2@test.com created.
-    test_user3@test.com created.
-    test_user4@test.com created.
-    test_user5@test.com created.
-    Users created successfully!
+---
+
+## ↩️ Revertir una Migración
+
+```bash
+pipenv run downgrade
 ```
 
-### **Nota importante para la base de datos y los datos dentro de ella**
+---
 
-Cada entorno de Github Codespace tendrá **su propia base de datos**, por lo que si estás trabajando con más personas, cada uno tendrá una base de datos diferente y diferentes registros dentro de ella. Estos datos **se perderán**, así que no pases demasiado tiempo creando registros manualmente para pruebas, en su lugar, puedes automatizar la adición de registros a tu base de datos editando el archivo ```commands.py``` dentro de la carpeta ```/src/api```. Edita la línea 32 de la función ```insert_test_data``` para insertar los datos según tu modelo (usa la función ```insert_test_users``` anterior como ejemplo). Luego, todo lo que necesitas hacer es ejecutar ```pipenv run insert-test-data```.
+## 🌐 Despliegue
 
-### Instalación manual del Front-End:
+El proyecto está listo para desplegarse en **Render.com**. Sigue la [guía oficial de despliegue](https://4geeks.com/docs/start/deploy-to-render-com).
 
--   Asegúrate de estar usando la versión 20 de node y de que ya hayas instalado y ejecutado correctamente el backend.
+---
 
-1. Instala los paquetes: `$ npm install`
-2. ¡Empieza a codificar! inicia el servidor de desarrollo de webpack `$ npm run start`
+## 📁 Estructura del Proyecto
 
-## ¡Publica tu sitio web!
+```
+sp-124-los-libritos-de-yajuala/
+├── src/
+│   ├── api/          # Backend Flask (modelos, rutas, comandos)
+│   └── front/        # Frontend React (componentes, páginas, estilos)
+├── migrations/       # Migraciones de base de datos con Alembic
+├── public/           # Recursos estáticos
+├── .env.example      # Plantilla de variables de entorno
+├── Pipfile           # Dependencias de Python
+├── package.json      # Dependencias de JavaScript
+└── render.yaml       # Configuración de despliegue en Render
+```
 
-Esta plantilla está 100% lista para desplegarse con Render.com y Heroku en cuestión de minutos. Por favor, lee la [documentación oficial al respecto](https://4geeks.com/docs/start/deploy-to-render-com).
+---
 
-### Contribuyentes
+## 👥 Colaboradores
 
-Esta plantilla fue construida como parte del [Coding Bootcamp](https://4geeksacademy.com/us/coding-bootcamp) de 4Geeks Academy por [Alejandro Sanchez](https://twitter.com/alesanchezr) y muchos otros contribuyentes. Descubre más sobre nuestro [Curso de Desarrollador Full Stack](https://4geeksacademy.com/us/coding-bootcamps/part-time-full-stack-developer) y [Bootcamp de Ciencia de Datos](https://4geeksacademy.com/us/coding-bootcamps/datascience-machine-learning).
+Desarrollado por el equipo **Los Libritos de Yajuala** como parte del Bootcamp Full Stack de 4Geeks Academy (Grupo sp-124).
 
-Puedes encontrar otras plantillas y recursos como este en la [página de github de la escuela](https://github.com/4geeksacademy/).
+Plantilla original creada por [Alejandro Sanchez](https://twitter.com/alesanchezr) y colaboradores de [4Geeks Academy](https://github.com/4geeksacademy/).
+
+---
+
+## 📄 Licencia
+
+Este proyecto es de código abierto y está disponible bajo la [Licencia MIT](LICENSE).
